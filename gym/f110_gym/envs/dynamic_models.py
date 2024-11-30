@@ -173,18 +173,18 @@ def vehicle_dynamics_st(x, u_init, mu, C_Sf, C_Sr, lf, lr, h, m, I, s_min, s_max
                 +mu/(x[3]*(lr+lf))*(C_Sf*(g*lr-u[1]*h))*x[2]
         
         if abs(x[6] > 0.3):
-            if abs(x4_dot) > (g*mu - 0.65*g*mu * np.cos(x[6])):
+            if abs(x4_dot) > (g*mu - 0.4*g*mu * np.cos(x[6])):
                 if x4_dot > 0:
-                    x4_dot = 0.65*g*mu - 0.65*g*mu * np.cos(x[6])
+                    x4_dot = 0.4*g*mu - 0.4*g*mu * np.cos(x[6])
                 elif x4_dot < 0:
-                    x4_dot = -0.65*g*mu + 0.65*g*mu * np.cos(x[6])
+                    x4_dot = -0.4*g*mu + 0.4*g*mu * np.cos(x[6])
                 else:
                     pass
         elif abs(x4_dot) > g*mu:
             if x4_dot > 0:
-                x4_dot = 0.65*g*mu
+                x4_dot = 0.4*g*mu
             elif x4_dot < 0:
-                x4_dot = -0.65*g*mu
+                x4_dot = -0.4*g*mu
         
 
         # system dynamics
@@ -192,17 +192,6 @@ def vehicle_dynamics_st(x, u_init, mu, C_Sf, C_Sr, lf, lr, h, m, I, s_min, s_max
                       x3_dot, x4_dot, 
                       x5_dot, x6_dot, 
                       x7_dot])
-        # f = np.array([x[3]*np.cos(x[6] + x[4]),
-        #     x[3]*np.sin(x[6] + x[4]),
-        #     u[0],
-        #     u[1],
-        #     x[5],
-        #     -mu*m/(x[3]*I*(lr+lf))*(lf**2*C_Sf*(g*lr-u[1]*h) + lr**2*C_Sr*(g*lf + u[1]*h))*x[5] \
-        #         +mu*m/(I*(lr+lf))*(lr*C_Sr*(g*lf + u[1]*h) - lf*C_Sf*(g*lr - u[1]*h))*x[6] \
-        #         +mu*m/(I*(lr+lf))*lf*C_Sf*(g*lr - u[1]*h)*x[2],
-        #     (mu/(x[3]**2*(lr+lf))*(C_Sr*(g*lf + u[1]*h)*lr - C_Sf*(g*lr - u[1]*h)*lf)-1)*x[5] \
-        #         -mu/(x[3]*(lr+lf))*(C_Sr*(g*lf + u[1]*h) + C_Sf*(g*lr-u[1]*h))*x[6] \
-        #         +mu/(x[3]*(lr+lf))*(C_Sf*(g*lr-u[1]*h))*x[2]])
 
     return f
 
